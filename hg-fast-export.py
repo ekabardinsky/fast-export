@@ -134,11 +134,8 @@ def export_file_contents(ctx,manifest,files,hgtags,encoding=''):
     if not hgtags and file == ".hgtags":
       sys.stderr.write('Skip %s\n' % (file))
       continue
-    d=ctx.filectx(file).data()
-    if encoding:
-      filename=file.decode(encoding).encode('utf8')
-    else:
-      filename=file
+    d=ctx.filectx(file).data() 
+    filename=file.decode('cp1251').encode('utf8')
     wr('M %s inline %s' % (gitmode(manifest.flags(file)),
                            strip_leading_slash(filename)))
     wr('data %d' % len(d)) # had some trouble with size()
