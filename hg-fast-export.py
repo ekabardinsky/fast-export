@@ -226,14 +226,14 @@ def export_commit(ui,repo,revision,old_marks,max,count,authors,
   sys.stderr.write('%s: Exporting %s revision %d/%d with %d/%d/%d added/changed/removed files\n' %
       (branch,type,revision+1,max,len(added),len(changed),len(removed)))
 
-  if fn_encoding:
-    removed=[r.decode(fn_encoding).encode('utf8') for r in removed]
+  
+  removed=[r.decode('cp1251').encode('utf8') for r in removed]
 
   removed=[strip_leading_slash(x) for x in removed]
 
   map(lambda r: wr('D %s' % r),removed)
-  export_file_contents(ctx,man,added,hgtags,fn_encoding)
-  export_file_contents(ctx,man,changed,hgtags,fn_encoding)
+  export_file_contents(ctx,man,added,hgtags,'cp1251')
+  export_file_contents(ctx,man,changed,hgtags,'cp1251')
   wr()
 
   count=checkpoint(count)
